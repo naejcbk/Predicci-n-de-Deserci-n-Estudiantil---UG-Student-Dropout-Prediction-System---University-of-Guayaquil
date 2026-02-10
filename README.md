@@ -1,11 +1,11 @@
-# 🎓 Predicción de Deserción Estudiantil - UG
+# Predicción de Deserción Estudiantil - UG
 
 Este proyecto utiliza **Machine Learning** y la metodología **CRISP-DM** para identificar estudiantes en riesgo de abandono en la Facultad de Ingeniería de la Universidad de Guayaquil.
 
-## 🚀 App en la Nube
+## App en la Nube
 [👉 Haz clic aquí para ver la aplicación funcionando en vivo]([yd8mg2z6wxamugr4neujjm.streamlit.app](https://yd8mg2z6wxamugr4neujjm.streamlit.app/))
 
-## 📊 Metodología
+## Metodología
 Se aplicó el estándar **CRISP-DM**:
 1. **Entendimiento del Negocio:** Reducción de deserción reactiva.
 2. **Entendimiento de Datos:** Análisis de 4,448 registros académicos.
@@ -20,7 +20,7 @@ Se aplicó el estándar **CRISP-DM**:
 * **Joblib** (Persistencia del Modelo)
 * **Matplotlib & Seaborn** (Visualización)
 
-## 💻 Instalación Local
+## Instalación Local
 1. Clona el repo: `git clone https://github.com/TU_USUARIO/TU_REPO.git`
 2. Instala dependencias: `pip install -r requirements.txt`
 3. Corre la app: `Presentacion Streamlit.py`
