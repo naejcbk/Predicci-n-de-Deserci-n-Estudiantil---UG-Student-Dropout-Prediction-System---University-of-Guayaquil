@@ -22,7 +22,9 @@ try:
     st.sidebar.title("Metodologia CRISP-DM")
     st.sidebar.markdown("---")
     
+# Navegación actualizada
     opciones = [
+        "Presentacion del Proyecto",
         "Fase 1: Entendimiento del Negocio",
         "Fase 2: Entendimiento de los Datos",
         "Fase 3: Preparacion de los Datos",
@@ -31,6 +33,38 @@ try:
         "Fase 6: Despliegue"
     ]
     menu = st.sidebar.selectbox("Seleccione la Fase:", opciones)
+
+# ==========================================
+    # PAGINA DE PRESENTACION
+    # ==========================================
+    if menu == "Presentacion del Proyecto":
+        # Contenedor centrado para la caratula
+        st.markdown("<br>", unsafe_allow_html=True)
+        
+        
+        st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
+        st.header("FACULTAD DE CIENCIAS MATEMÁTICAS Y FÍSICAS")
+        st.subheader("Carrera: Ciencia de Datos e Inteligencia Artificial")
+        st.markdown("---")
+        
+        st.title("PROYECTO FINAL")
+        st.subheader("ALMACENES DE DATOS Y MINERÍA DE DATOS")
+        st.markdown("<br>", unsafe_allow_html=True)
+        
+        # Informacion del curso y alumno
+        col_info1, col_info2 = st.columns(2)
+        with col_info1:
+            st.markdown(f"**Curso:** \nCDDEIA-ELNO-5-2")
+            st.markdown(f"**Estudiante:** \nCARLOS BURGOS JEAN CARLOS")
+        
+        with col_info2:
+            st.markdown(f"**Maestro:** \nING. LEON GRANIZO OSCAR DARIO")
+            st.markdown(f"**Fecha:** \nFebrero 2026")
+            
+        st.markdown("---")
+        st.markdown("**REPOSITORIO GITHUB:**")
+        st.write("https://github.com/naejcbk/Predicci-n-de-Deserci-n-Estudiantil---UG-Student-Dropout-Prediction-System---University-of-Guayaquil")
+        st.markdown("</div>", unsafe_allow_html=True)
 
 # FASE 1: ENTENDIMIENTO DEL NEGOCIO (EXPANDIDA)
     if menu == "Fase 1: Entendimiento del Negocio":
