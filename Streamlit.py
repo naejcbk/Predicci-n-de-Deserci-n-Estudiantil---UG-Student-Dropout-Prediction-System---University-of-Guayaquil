@@ -109,67 +109,70 @@ try:
 
         st.markdown("---")
         
-# FASE 2: ENTENDIMIENTO DE LOS DATOS (Variables y Graficos)
+# ==========================================
+    # FASE 2: ENTENDIMIENTO DE LOS DATOS
+    # ==========================================
     elif menu == "Fase 2: Entendimiento de los Datos":
         st.title("Fase 2: Entendimiento de los Datos")
         st.markdown("---")
-
-        # --- RESUMEN ESTRATÉGICO DE DATOS ---
-        st.subheader("Perfil Comparativo del Estudiante")
-        st.write("Análisis de las diferencias clave entre estudiantes activos y en riesgo:")
-
-        # 1. KPIs principales en tarjetas
-        col1, col2, col3 = st.columns(3)
-        with col1:
-            total_est = len(df)
-            st.metric("Total Estudiantes", total_est)
-        with col2:
-            tasa_desercion = (df['Desertor'].mean() * 100)
-            st.metric("Tasa de Deserción", f"{tasa_desercion:.1f}%", delta="-5%" if tasa_desercion < 50 else "+5%", delta_color="inverse")
-        with col3:
-            asistencia_media = df['promedioasistencia'].mean()
-            st.metric("Asistencia Promedio", f"{asistencia_media:.1f}%")
+        
+        st.subheader("Definicion de Variables de Analisis")
+        st.write("""
+        El estudio se centra en tres variables determinantes extraidas del record academico, 
+        las cuales permiten caracterizar el perfil de permanencia del estudiante:
+        * **Promedio Historico:** Refleja la consistencia en el rendimiento cognitivo.
+        * **Promedio de Asistencia:** Mide el nivel de presencialidad y participacion.
+        * **# de Semestre:** Define el contexto temporal y la madurez dentro de la carrera.
+        """)
 
         st.markdown("---")
-
-        # 2. Tabla de comparación directa (Esto informa más que el describe)
-        st.write("### ¿Qué diferencia a un desertor de un activo?")
-        resumen_comparativo = df.groupby('Desertor')[['promediohistorico', 'promedioasistencia', '# de Semestre']].mean()
-        resumen_comparativo.index = ['Activos (Clase 0)', 'Desertores (Clase 1)']
+        st.subheader("Analisis de Riesgo y Tasa de Desercion")
         
-        # Renombrar columnas
-        resumen_comparativo.columns = ['Nota Promedio', '% Asistencia Media', 'Semestre Promedio']
-        st.table(resumen_comparativo.style.format("{:.2f}"))
+        # Metrica principal con la explicacion corregida
+        tasa = (df['Desertor'].mean() * 100)
+        st.metric("Tasa de Desercion Detectada", f"{tasa:.1f}%")
+        
+        st.info(f"""
+        **Origen de los Datos:** La tasa del {tasa:.1f}% representa a los estudiantes que han vulnerado 
+        los reglamentos de permanencia vigentes: perdida de carrera por tercera matricula reprobada 
+        e incumplimiento del limite legal de asistencia (70%).
+        """)
 
-        st.info("""
-        Como se observa en la tabla, los desertores suelen presentar una caída drástica en la **Asistencia** al igual que en las notas.
-        """)        
-        # Gráfico por Nivel
+        # Grafico de Desercion por Semestre
+        st.write("**Probabilidad de Abandono segun el Nivel Academico**")
         tasa_nivel = df.groupby('# de Semestre')['Desertor'].mean() * 100
         fig_l, ax_l = plt.subplots(figsize=(10, 3.5))
         sns.barplot(x=tasa_nivel.index, y=tasa_nivel.values, color='#3498db', ax=ax_l)
-        ax_l.set_ylabel("Tasa de Deserción (%)")
+        ax_l.set_ylabel("% de Riesgo")
         ax_l.set_xlabel("Semestre")
         st.pyplot(fig_l)
-        st.info("El grafico de barras por semestre identifica el 'Filtro Inicial'. Los niveles inferiores presentan una tasa de desercion significativamente mayor, lo que justifica el uso del semestre como variable predictora.")
+        
+        st.info("""
+        **Leyenda Explicativa:** El grafico identifica que la vulnerabilidad reglamentaria es critica en el 
+        **Primer Semestre**. Esto sugiere que las transgresiones al reglamento de asistencia y notas 
+        ocurren con mayor frecuencia al inicio de la vida universitaria.
+        """)
 
+        st.markdown("---")
         col_eda1, col_eda2 = st.columns(2)
         with col_eda1:
-            st.write("**Distribucion de Notas (Densidad)**")
+            st.write("**Distribucion de Rendimiento (Densidad)**")
             fig_n, ax_n = plt.subplots()
             sns.kdeplot(activos['promediohistorico'], fill=True, color="green", label="Activos", ax=ax_n)
             sns.kdeplot(desertores['promediohistorico'], fill=True, color="red", label="Desertores", ax=ax_n)
+            ax_n.set_xlabel("Nota Promedio")
             ax_n.legend()
             st.pyplot(fig_n)
-            st.info("El solapamiento de las curvas muestra que la zona de riesgo critico se encuentra bajo el promedio de 7.0.")
+            st.caption("Los estudiantes en riesgo presentan una densidad mayor en promedios inferiores a 7.0.")
             
         with col_eda2:
             st.write("**Dispersion de Asistencia (Cajas)**")
             fig_a, ax_a = plt.subplots()
             sns.boxplot(data=df, x='Desertor', y='promedioasistencia', palette='RdYlGn_r', ax=ax_a)
             ax_a.set_xticklabels(['Activo', 'Desertor'])
+            ax_a.set_ylabel("% Asistencia")
             st.pyplot(fig_a)
-            st.info("Los 'Outliers' o puntos fuera de los bigotes muestran estudiantes que, pese a tener asistencia irregular, permanecen en el sistema.")
+            st.caption("Se observa una concentracion de desertores bajo la linea de corte institucional del 70%.")
 
 
 # FASE 3: PREPARACIÓN DE LOS DATOS
