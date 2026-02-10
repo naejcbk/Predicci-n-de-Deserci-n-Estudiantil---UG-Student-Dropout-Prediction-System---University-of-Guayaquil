@@ -3,7 +3,7 @@
 Este proyecto utiliza **Machine Learning** y la metodología **CRISP-DM** para identificar estudiantes en riesgo de abandono en la Facultad de Ingeniería de la Universidad de Guayaquil.
 
 ## App en la Nube
-[👉 Haz clic aquí para ver la aplicación funcionando en vivo]([yd8mg2z6wxamugr4neujjm.streamlit.app](https://yd8mg2z6wxamugr4neujjm.streamlit.app/))
+[👉 Haz clic aquí para ver la aplicación funcionando en vivo]((https://yd8mg2z6wxamugr4neujjm.streamlit.app/))
 
 ## Metodología
 Se aplicó el estándar **CRISP-DM**:
